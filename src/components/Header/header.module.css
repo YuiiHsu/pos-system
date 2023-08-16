@@ -1,0 +1,22 @@
+.homeButton {
+	width: 125px; 
+	height: 65px;
+	background-color: #003E33;
+	color: #FFFFFF;
+}
+
+.search {
+	width: 1000px;
+	height: 65px; 
+}
+
+.showCart {
+	
+}
+
+.showCartButton {
+	width: 125px;
+	height: 65px;
+	background-color: #7BAA3C;
+	color: #FFFFFF;
+}

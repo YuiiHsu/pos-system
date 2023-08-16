@@ -1,95 +1,99 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import React, { useState } from 'react';
+import Header from '@/components/Header/Header';
+import ItemList from '@/components/Items/ItemList';
+import CategoryButton from '@/components/Categories/CategoryButton';
+import style from './page.module.css';
+import { Button, TextField } from '@mui/material';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import { Box } from '@mui/material';
+import { Grid } from '@mui/material';
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+function Home() {
+	const [showCart, setShowCart] = useState(false);
+	const [selectedCategory, setSelectedCategory] = useState<number | null>(0);
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+	/**
+	 * 回到首頁(當日結餘 紀錄 結帳人員 等等)
+	 */
+	const handleGoHome = () => {
+		console.log('Go back to home page');
+	};
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+	/**
+	 * 處理點擊到的類別資訊
+	 * @param index 
+	 */
+	const handleCategoryClick = (index: number) => {
+		setSelectedCategory(index);
+	};
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+	const items = [
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+		{ id: 'DV1292763', brand: '第一饗宴', name: '無穀低敏 雞肉藍莓全犬配方(小顆粒) (2.3公斤*2包)', price: 980, img: 'https://fakeimg.pl/300/' },
+		{ id: 'HW2903117', brand: '瑞威', name: '室內犬低敏配方', price: 900, img: 'https://fakeimg.pl/300/' },
+	];
+	const categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+	return (
+		<Box sx={{ margin: '40px' }}>
+			<Grid container alignItems="center" spacing={1}>
+				{/* 回首頁 搜尋 */}
+				<Grid item lg={12} marginBottom={5}>
+					<Header onGoHome={handleGoHome} showCart={showCart} />
+				</Grid>
+				{/* 商品分類 */}
+				<Grid item marginBottom={5}>
+					<Grid container spacing={1} alignItems="center">
+						<Grid item>
+							<CategoryButton
+								categories={categories}
+								selectedCategory={selectedCategory}
+								onClick={handleCategoryClick}
+							/>
+						</Grid>
+					</Grid>
+				</Grid>
+				{/* 商品列表 */}
+				<Grid item xs={12}>
+					<ItemList items={items} />
+				</Grid>
+			</Grid>
+
+			{/* 展開購物車 */}
+			{!showCart && (
+				<div
+					style={{
+						position: 'sticky',
+						top: 0,
+						right: 0,
+						alignSelf: 'flex-start',
+						zIndex: 100, // 設定一個 z-index 值，確保按鈕在其他內容之上
+					}}
+				>
+					<Button
+						variant="outlined"
+						// onClick={onGoHome} 
+						className={style.showCartButton}
+					>
+						展開購物車
+					</Button>
+				</div>
+			)}
+		</Box>
+	);
 }
+
+export default Home;
