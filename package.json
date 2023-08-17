@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.5",
+    "@types/faker": "^6.6.9",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
@@ -21,6 +22,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.15.0",
+    "react-window": "^1.8.9",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/react-window": "^1.8.5",
+    "faker": "^5.5.3"
   }
 }
