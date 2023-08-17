@@ -1,6 +1,22 @@
 import React from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 import style from './header.module.css';
+import { styled } from '@mui/system';
+
+const HomeButton = styled('button')({
+	border: '1px solid  #003E33',
+	width: '125px',
+	height: '65px',
+	backgroundColor: '#003E33',
+	color: '#FFFFFF',
+	borderRadius: '5px'
+});
+
+const Search = styled(TextField)({
+	marginLeft: '50px',
+	width: '900px',
+	height: '65px' 
+});
 
 interface HeaderProps {
 	onGoHome: () => void;
@@ -12,18 +28,18 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, showCart }) => {
 		<Grid container spacing={2} alignItems="center" justifyContent="start" >
 			{/* 回首頁按鈕 */}
 			<Grid item>
-				<Button
-					variant="outlined"
+				<HomeButton
+					// variant="outlined"
 					onClick={onGoHome}
-					className={style.homeButton}
+					// className={style.homeButton}
 				>
 					回首頁
-				</Button>
+				</HomeButton>
 			</Grid>
 
 			{/* 搜尋框 */}
 			<Grid item>
-				<TextField
+				<Search
 					label="Search"
 					variant="outlined"
 					fullWidth

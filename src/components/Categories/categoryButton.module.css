@@ -1,20 +1,20 @@
-.categoryButton {
+.categoryButtonContainer .categoryButton {
   width: 300px;
   height: 65px;
   border-radius: 5px;
   border: 2px solid #7BAA3C;
   color: #2F2E2E;
-  background-color: #FFFFFF;
+	background-color: #FFFFFF;
   transition: background-color 0.3s, color 0.3s; /* 添加過渡效果 */
 }
 
-.categoryButton:hover {
+.categoryButtonContainer .categoryButton:hover {
   background-color: #7BAA3C;
   border-color: #7BAA3C;
   color: #FFFFFF;
 }
 
-.categoryButtonSelected {  
+.categoryButtonContainer .categoryButtonSelected {  
   width: 300px;
   height: 65px;
   border-radius: 5px;
@@ -22,8 +22,7 @@
   border-color: #7BAA3C;
   color: #FFFFFF;
 }
-
-.categoryButtonSelected:hover  {  
+.categoryButtonContainer .categoryButtonSelected:hover  {  
   background-color: #7BAA3C;
   border-color: #7BAA3C;
   color: #FFFFFF;

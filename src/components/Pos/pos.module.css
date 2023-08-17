@@ -1,0 +1,11 @@
+.showCartButton {
+	width: 125px;
+	height: 65px;
+	position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+	background-color: #7BAA3C;
+	color: #FFFFFF;
+}
+
