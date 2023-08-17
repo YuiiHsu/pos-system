@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onGoHome, showCart }) => {
 	return (
-		<Grid container spacing={2} alignItems="center" justifyContent="space-between" >
+		<Grid container spacing={2} alignItems="center" justifyContent="start" >
 			{/* 回首頁按鈕 */}
 			<Grid item>
 				<Button
@@ -31,28 +31,6 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, showCart }) => {
 					className={style.search}
 				/>
 			</Grid>
-
-			{/* 展開購物車按鈕，根據 showCart 的值來動態顯示或隱藏 */}
-			{/* {!showCart && (
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          right: 0,
-          alignSelf: 'flex-start',
-          zIndex: 100, // 設定一個 z-index 值，確保按鈕在其他內容之上
-        }}
-      >
-        <Button 
-          variant="outlined" 
-          onClick={onGoHome} 
-          className={style.showCartButton}
-        >
-          展開購物車
-        </Button>
-      </div>
-    )}
-		 */}
 		</Grid>
 	);
 };

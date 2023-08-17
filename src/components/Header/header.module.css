@@ -6,12 +6,9 @@
 }
 
 .search {
-	width: 1000px;
+	margin-left: 50px;
+	width: 800px;
 	height: 65px; 
-}
-
-.showCart {
-	
 }
 
 .showCartButton {

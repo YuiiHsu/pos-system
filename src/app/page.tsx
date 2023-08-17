@@ -8,6 +8,7 @@ import { Button, TextField } from '@mui/material';
 
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
+import Cart from '@/components/Cart/Cart';
 
 function Home() {
 	const [showCart, setShowCart] = useState(false);
@@ -73,25 +74,17 @@ function Home() {
 			</Grid>
 
 			{/* 展開購物車 */}
-			{!showCart && (
-				<div
-					style={{
-						position: 'sticky',
-						top: 0,
-						right: 0,
-						alignSelf: 'flex-start',
-						zIndex: 100, // 設定一個 z-index 值，確保按鈕在其他內容之上
-					}}
-				>
-					<Button
-						variant="outlined"
-						// onClick={onGoHome} 
-						className={style.showCartButton}
-					>
-						展開購物車
-					</Button>
-				</div>
-			)}
+			{showCart ?
+					<Cart setShowCart={setShowCart}/>
+				: (
+						<Button
+							variant="outlined"
+							onClick={() => {setShowCart(true)}} 
+							className={style.showCartButton}
+						>
+							展開購物車
+						</Button>
+				)}
 		</Box>
 	);
 }
