@@ -1,7 +1,7 @@
 import React from 'react';
 import Item from './Item';
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Product } from "../../types/cart";
+import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 interface Item {
 	id: string; brand: string; name: string; price: number, img: string 
@@ -15,7 +15,6 @@ interface ItemListProps {
 const ItemList: React.FC<ItemListProps> = ({ items, addToCart }) => {
 	type RenderRowProps = ListChildComponentProps;
 	
-
 	return (
 		<FixedSizeList
 			height={500} // 列表的高度

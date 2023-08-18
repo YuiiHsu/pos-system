@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PaymentDialog from '../Payment/PaymentDialog';
+import { SelectedProduct } from "../../types/cart";
 import { Button, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -91,9 +92,13 @@ const NextButton = styled(Button)(({ theme }) => ({
 }));
 
 interface BillProps {
+	handleBillPage: (isOpen: boolean) => void;
+	cart: SelectedProduct[] | [],
+	clearCart: () => void;
 }
 
-const Bill: React.FC<BillProps> = ({ }) => {
+const Bill: React.FC<BillProps> = (props: BillProps) => {
+	const { handleBillPage, cart, clearCart } = props;
 	const [open, setOpen] = useState(false);
 	const [isCompleted, setIsCompleted] = useState(false);
 	const navigate = useNavigate();
@@ -103,14 +108,11 @@ const Bill: React.FC<BillProps> = ({ }) => {
 
 	return (
 		<BillContainer>
-			{/* Section 1 */}
 			<Section>
-				<HomeButton onClick={() => { navigate('/') }}>回首頁</HomeButton>
+				<HomeButton onClick={() => { () => handleBillPage(false) }}>回首頁</HomeButton>
 				<Typography variant="h3">{isCompleted ? '交易明細' : '當前購物車'}</Typography>
-				<ClearButton>清空</ClearButton>
+				<ClearButton onClick={() => clearCart()}>清空</ClearButton>
 			</Section>
-
-			{/* Section 2 */}
 			<Fields>
 				<Item>品項</Item>
 				<Item>商品名</Item>
@@ -118,22 +120,20 @@ const Bill: React.FC<BillProps> = ({ }) => {
 				<Item>價格</Item>
 				<Item>數量</Item>
 			</Fields>
-
-			{/* Section 3 */}
-			<Items>
-				<Item>瑞威</Item>
-				<Item>室內犬低敏配方</Item>
-				<Item>DV1292763</Item>
-				<Item>980</Item>
-				<Item>1</Item>
-			</Items>
-
-			{/* Section 4 */}
+			{cart.map((item) => {
+				return <Items key={item.id}>
+					<Item>{item.brand}</Item>
+					<Item>{item.name}</Item>
+					<Item>{item.id}</Item>
+					<Item>{item.price}</Item>
+					<Item>{item.count}</Item>
+				</Items>
+			})}
 			{isCompleted ?
 				<div>
 				</div>
 				: <TotalSection>
-					<PrevButton>上一步</PrevButton>
+					<PrevButton onClick={() => handleBillPage(false)}>上一步</PrevButton>
 					<Total>總計</Total>
 					{/* <TotalAmount>$980</TotalAmount> */}
 					<NextButton onClick={() => handleDialog(true)}>下一步</NextButton>

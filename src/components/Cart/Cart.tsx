@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Typography } from '@mui/material';
 import CartItems from '../../components/CartItems/CartItems';
 import styles from './Cart.module.css';
-import { useNavigate } from 'react-router-dom';
 import {SelectedProduct} from"../../types/cart";
+import { Button, Typography } from '@mui/material';
 
 interface Item {
   id: string;
@@ -12,23 +11,27 @@ interface Item {
   price: number;
 }
 interface ChildProps {
-  setShowCart: React.Dispatch<React.SetStateAction<boolean>>
-	cart: SelectedProduct[]|[]
+  handleCartPage:  (isOpen:boolean ) => void; 
+  handleBillPage:  (isOpen:boolean ) => void; 
+	cart: SelectedProduct[]|[],
+	clearCart: () => void; 
 }
 
 function Cart(props: ChildProps) { 
-	const navigate = useNavigate();
-  const { setShowCart, cart } = props;
+  const { handleCartPage, handleBillPage, cart, clearCart } = props;
 	const items: SelectedProduct[] = cart;
 
   return (
     <div className={styles.cartContainer}>
       <div className={styles.headerAndTitle}>
         <div className={styles.header}>
-          <Button onClick={() => setShowCart(false)}>
+          <Button onClick={() => handleCartPage(false)}>
             縮小購物車
           </Button>
-          <Button variant="outlined" className={styles.clearCartButton}>
+          <Button 
+						variant="outlined" 
+						className={styles.clearCartButton}
+						onClick={() => {clearCart()}}>
             清空
           </Button>
         </div>
@@ -50,8 +53,8 @@ function Cart(props: ChildProps) {
         <Button 
 					className={styles.nextButton}
 					onClick={() => {
-						setShowCart(false)
-						navigate('/bill');
+						handleCartPage(false);
+						handleBillPage(true);
 						}} >下一步</Button>
       </div>
     </div>

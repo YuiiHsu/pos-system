@@ -4,20 +4,18 @@ import Cart from '@/components/Cart/Cart';
 import Header from '@/components/Header/Header';
 import ItemList from '@/components/Items/ItemList';
 import CategoryButton from '@/components/Categories/CategoryButton';
+import { SelectedProduct, Product } from "../../types/cart";
+import { manageCart } from '@/utils/cartUtils';
+import Bill from '../Bill/Bill';
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import { SelectedProduct, Product } from "../../types/cart";
 import faker from "faker";
-import { manageCart } from '@/utils/cartUtils';
-import { fetchProductFromDatabase } from '@/fakeAPI';
 
 export interface Category {
 	id: number;
 	name: string;
 }
-
-
 
 const ShowCartButton = styled('button')({
 	width: '125px',
@@ -40,6 +38,7 @@ enum CartAction {
 
 function Pos() {
 	const [showCart, setShowCart] = useState(false);
+	const [showBill, setShowBill] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState<number>(0)
 	const [searchInput, setSearchInput] = useState('');
 	const [totalItems, setTotalItems] = useState<Product[] | null>(null)
@@ -182,42 +181,63 @@ function Pos() {
 		setCart(manageCart(cart, CartAction.Clear));
 	};
 
+	/**
+	 * 處理購物車詳情頁面開關
+	 * @param isOpen 是否開啟
+	 */
+	const handleBillPage = (isOpen: boolean) => {
+		setShowBill(isOpen)
+	}
+
+	/**
+	 * 處理右側購物車頁面開關
+	 * @param isOpen 是否開啟
+	 */
+	const handleCartPage = (isOpen: boolean) => {
+		setShowCart(isOpen)
+	}
+
 	useEffect(() => {
 		filteredItems(searchInput, selectedCategory, totalItems, items)
 	}, [searchInput, selectedCategory, totalItems])
 
-	return (
+	return (<>
 		<Box sx={{ margin: '40px' }}>
-			<Grid container alignItems="center" spacing={1}>
-				{/* 回首頁 搜尋 */}
-				<Grid item lg={12} marginBottom={5}>
-					<Header onGoHome={handleGoHome} showCart={showCart} onSearchInputChange={setSearchInput} />
-				</Grid>
-				{/* 商品分類 */}
-				<Grid item marginBottom={5}>
-					<Grid container spacing={1} alignItems="center">
-						<Grid item>
-							<CategoryButton
-								categories={categories}
-								selectedCategory={selectedCategory}
-								onClick={handleCategoryClick}
-							/>
+			{
+				!showBill ?
+					<Grid container alignItems="center" spacing={1}>
+						{/* 回首頁 搜尋 */}
+						<Grid item lg={12} marginBottom={5}>
+							<Header onGoHome={handleGoHome} showCart={showCart} onSearchInputChange={setSearchInput} />
 						</Grid>
+						{/* 商品分類 */}
+						<Grid item marginBottom={5}>
+							<Grid container spacing={1} alignItems="center">
+								<Grid item>
+									<CategoryButton
+										categories={categories}
+										selectedCategory={selectedCategory}
+										onClick={handleCategoryClick}
+									/>
+								</Grid>
+							</Grid>
+						</Grid>
+						{/* 商品列表 */}
+						{!items ? <></>
+							: <ItemList items={items} addToCart={addToCart} />}
 					</Grid>
-				</Grid>
-				{/* 商品列表 */}
-				{!items ? <></>
-					: <ItemList items={items} addToCart={addToCart} />}
-			</Grid>
+					: <Bill handleBillPage={handleBillPage} cart={cart} clearCart={clearCart}/>
+			}
 			{/* 展開購物車 */}
-			{showCart ?
-				<Cart setShowCart={setShowCart} cart={cart} />
+			{!showBill && (showCart ?
+				<Cart handleCartPage={handleCartPage} handleBillPage={handleBillPage} cart={cart} clearCart={clearCart} />
 				: (
 					<ShowCartButton onClick={() => { setShowCart(true) }}>
 						展開購物車
 					</ShowCartButton>
-				)}
+				))}
 		</Box>
+	</>
 	);
 }
 
