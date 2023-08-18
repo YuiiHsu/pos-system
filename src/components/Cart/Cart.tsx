@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import CartItems from '../../components/CartItems/CartItems';
+import React from 'react';
+import CartItems from './CartItems';
 import styles from './Cart.module.css';
 import {SelectedProduct} from"../../types/cart";
 import { Button, Typography } from '@mui/material';
@@ -38,7 +38,6 @@ function Cart(props: ChildProps) {
         </div>
         <Typography className={styles.cartTitle}>當前購物車</Typography>
       </div>
-
       <CartItems items={items} adjustCartItemQuantity={adjustCartItemQuantity} />
 
       {/* TODO 折扣 */}

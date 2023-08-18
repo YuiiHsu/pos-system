@@ -3,30 +3,6 @@ import { Button, Grid, TextField } from '@mui/material';
 import style from './header.module.css';
 import { styled } from '@mui/system';
 
-const HomeButton = styled('button')({
-	border: '1px solid  #003E33',
-	width: '125px',
-	height: '65px',
-	backgroundColor: '#003E33',
-	color: '#FFFFFF',
-	borderRadius: '5px'
-});
-
-const Search = styled(TextField)({
-	marginLeft: '50px',
-	width: '900px',
-	height: '65px'
-});
-
-const SearchButton = styled('button')({
-	backgroundColor: '#FFFFFF',
-	border: '3px solid #7BAA3C',
-	width: '125px',
-	height: '50px',
-	borderRadius: '5px'
-});
-
-
 interface HeaderProps {
 	onGoHome: () => void;
 	showCart: boolean;
@@ -49,11 +25,11 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, showCart, onSearchInputChange
 	const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
 		// 需求：使用非同步的方式模擬從資料庫查詢商品資料的情況
 		// try {
-    //   const filteredProducts = await fetchProductsByKeyword(searchInput);
-    //   onSearchInputChange(searchInput, filteredProducts);
-    // } catch (error) {
-    //   console.error("查询商品出错，请重试");
-    // }
+		//   const filteredProducts = await fetchProductsByKeyword(searchInput);
+		//   onSearchInputChange(searchInput, filteredProducts);
+		// } catch (error) {
+		//   console.error("查询商品出错，请重试");
+		// }
 		onSearchInputChange(searchInput);
 	}
 
@@ -61,26 +37,26 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, showCart, onSearchInputChange
 		<Grid container spacing={2} alignItems="center" justifyContent="start" >
 			{/* 回首頁按鈕 */}
 			<Grid item>
-				<HomeButton
-					onClick={onGoHome}
-				>
+				<button className={style.homeButton} onClick={onGoHome}>
 					回首頁
-				</HomeButton>
+				</button>
 			</Grid>
 
 			{/* 搜尋框 */}
 			<Grid item>
-				<Search
+				<TextField
 					label="Search"
 					variant="outlined"
 					fullWidth
 					onChange={handleSearchChange}
 					value={searchInput}
-					className={style.search}
+					className={`${style.search} ${style.additionalClass}`}
 				/>
 			</Grid>
 			<Grid item>
-				<SearchButton onClick={handleSearch}>搜尋</SearchButton>
+				<button className={style.showCartButton} onClick={handleSearch}>
+					搜尋
+				</button>
 			</Grid>
 		</Grid>
 	);

@@ -23,7 +23,7 @@ const ItemList: React.FC<ItemListProps> = ({ items, addToCart }) => {
 			itemCount={items.length}
 			itemSize={200}
 		>
-			{({ index, style }: RenderRowProps) => (
+			{({ index }: RenderRowProps) => (
 				<Grid container spacing={2}>
 				{items.slice(index * 4, index * 4 + 4).map((item) => (
 					<Grid item xs={3} key={item.id}>

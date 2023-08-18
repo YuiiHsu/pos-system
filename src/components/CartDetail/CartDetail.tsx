@@ -120,6 +120,15 @@ const RightSection = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
+const FinishedButton = styled('button')(({ theme }) => ({
+	border: '1px solid  #7BAA3C',
+	width: '125px',
+	height: '65px',
+	backgroundColor: '#7BAA3C',
+	color: '#FFFFFF',
+	borderRadius: '5px'
+}));
+
 
 interface BillProps {
 	handleBillPage: (isOpen: boolean) => void;
@@ -132,7 +141,7 @@ interface changeType {
 	change: number
 }
 
-const Bill: React.FC<BillProps> = (props: BillProps) => {
+const CartDetail: React.FC<BillProps> = (props: BillProps) => {
 	const { handleBillPage, cart, clearCart } = props;
 	const [open, setOpen] = useState<boolean>(false);
 	const [isCompleted, setIsCompleted] = useState<boolean>(false);
@@ -202,9 +211,9 @@ const Bill: React.FC<BillProps> = (props: BillProps) => {
         <Typography variant="subtitle1">${chargeInfo.change}</Typography>
       </CenterSection>
       <RightSection>
-        <Button variant="outlined" onClick={() => handleFinished()}>
+        <FinishedButton onClick={() => handleFinished()}>
           完成
-        </Button>
+        </FinishedButton>
       </RightSection>
     </StyledCard>
 				: <TotalSection>
@@ -223,4 +232,4 @@ const Bill: React.FC<BillProps> = (props: BillProps) => {
 	);
 };
 
-export default Bill;
+export default CartDetail;

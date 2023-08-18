@@ -1,0 +1,44 @@
+.paymentDialogTitle {
+  text-align: center;
+}
+
+.paymentDialogContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.paymentAmountInput {
+  width: 100%;
+}
+
+.changeSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paymentDialogActions {
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.cancelButton {
+  border-radius: 5px;
+  width: 45%;
+  background-color: #B3B3B3;
+  color: #FFFFFF;
+}
+
+.confirmDialogButton {
+  border-radius: 5px;
+  width: 45%;
+  background-color: #7BAA3C;
+  color: #FFFFFF;
+}
+
+.warningText {
+  color: #FF0000;
+  font-size: 32px;
+}

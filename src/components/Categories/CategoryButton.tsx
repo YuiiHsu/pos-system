@@ -1,7 +1,11 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import style from './categoryButton.module.css';
-import { Category } from '../Pos/Pos';
+
+interface Category {
+	id: number;
+	name: string;
+}
 
 interface CategoryButtonProps {
 	categories: Category[];
@@ -17,7 +21,11 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({ categories, selectedCat
 					key={index}
 					variant="contained"
 					onClick={() => onClick(index)}
-					className={selectedCategory === index ? style.categoryButtonSelected : style.categoryButton}
+					className={
+						selectedCategory === index
+							? style.categoryButtonSelected
+							: style.categoryButton
+					}
 				>
 					{category.name}
 				</Button>

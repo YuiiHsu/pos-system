@@ -55,3 +55,15 @@
   color: #FFFFFF;
   border-radius: 0;
 }
+
+.content {
+	border: 1px solid #7BAA3C;
+	padding: 10;
+	box-sizing: border-box;
+	width: 350px;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	border-radius: 5px
+}
