@@ -1,6 +1,7 @@
 import React from 'react';
 import Item from './Item';
-import { Product } from "../../types/cart";
+import { Product } from "../../types/cart";import 
+{ Grid } from '@mui/material';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 interface Item {
@@ -17,15 +18,19 @@ const ItemList: React.FC<ItemListProps> = ({ items, addToCart }) => {
 	
 	return (
 		<FixedSizeList
-			height={500} // 列表的高度
-			width="100%" // 列表的寬度
-			itemCount={items.length} // 資料的數量
-			itemSize={200} // 每個項目的高度，根據你的實際需要調整
+			height={500} 
+			width="100%"
+			itemCount={items.length}
+			itemSize={200}
 		>
 			{({ index, style }: RenderRowProps) => (
-				<div onClick={() => addToCart(items[index])}>
-					<Item item={items[index]} />
-				</div>
+				<Grid container spacing={2}>
+				{items.slice(index * 4, index * 4 + 4).map((item) => (
+					<Grid item xs={3} key={item.id}>
+						<Item item={item} addToCart={addToCart} />
+					</Grid>
+				))}
+			</Grid>
 			)}
 		</FixedSizeList>
 	);

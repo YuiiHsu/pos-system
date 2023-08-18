@@ -1,13 +1,15 @@
 import React from 'react';
 import { Button, Grid } from '@mui/material';
+import { Product } from "../../types/cart";
 
 interface ItemProps {
-	item: { id: string; brand: string; name: string; price: number, img: string };
+	item: Product;
+	addToCart: (selectedItem:Product ) => void; 
 }
 
-const Item: React.FC<ItemProps> = ({ item }) => {
+const Item: React.FC<ItemProps> = ({ item, addToCart }) => {
 	return (
-		<Grid item xs={3} sx={{ display: 'flex', marginBottom: '30px' }}>
+		<Grid item xs={12}  sx={{ display: 'flex', marginBottom: '30px' }}>
 			<div
 				style={{
 					border: '1px solid #7BAA3C',
@@ -19,7 +21,7 @@ const Item: React.FC<ItemProps> = ({ item }) => {
 					flexDirection: 'column',
 					position: 'relative',
 					borderRadius: '5px'
-				}}
+				}} onClick={()=> {addToCart(item)}}
 			>
 				<Grid container spacing={2}>
 					<Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
