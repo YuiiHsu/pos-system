@@ -9,7 +9,7 @@ const BillContainer = styled(Paper)(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	padding: theme.spacing(2),
-	height: '90vh',  
+	minHeight: '90vh',  
 	position: 'relative', 
 }));
 
