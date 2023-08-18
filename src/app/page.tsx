@@ -11,7 +11,6 @@ function Home() {
 				<Route path="/404" element={<Pos />} />
 			</Routes>
 		</Router>
-
 	);
 }
 

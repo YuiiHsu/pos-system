@@ -145,7 +145,6 @@ function Pos() {
 	 */
 	const addToCart = (selectedItem: Product) => {
 		setCart(manageCart(cart, CartAction.Add, selectedItem));
-
 		// 需求：加入商品時，如果從資料庫找不到該商品，就顯示錯誤訊息，使用非同步的方式模擬從資料庫查詢商品資料的情況
 		// if (selectedItem) {
 		// 	fetchProductFromDatabase(selectedItem.id)
@@ -199,6 +198,13 @@ function Pos() {
 	useEffect(() => {
 		filteredItems(searchInput, selectedCategory, totalItems, items)
 	}, [searchInput, selectedCategory, totalItems])
+
+	useEffect(() => {
+		const savedCart = localStorage.getItem('cart');
+		if (savedCart) {
+			setCart(JSON.parse(savedCart));
+		}
+	},[])
 
 	return (<>
 		<Box sx={{ margin: '40px' }}>

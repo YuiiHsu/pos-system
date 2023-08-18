@@ -47,6 +47,13 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, showCart, onSearchInputChange
 	 * 過濾商品
 	 */
 	const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+		// 需求：使用非同步的方式模擬從資料庫查詢商品資料的情況
+		// try {
+    //   const filteredProducts = await fetchProductsByKeyword(searchInput);
+    //   onSearchInputChange(searchInput, filteredProducts);
+    // } catch (error) {
+    //   console.error("查询商品出错，请重试");
+    // }
 		onSearchInputChange(searchInput);
 	}
 
