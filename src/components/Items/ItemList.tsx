@@ -1,15 +1,21 @@
 import React from 'react';
 import Item from './Item';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
-import { styled } from '@mui/system';
+import { Product } from "../../types/cart";
+
+interface Item {
+	id: string; brand: string; name: string; price: number, img: string 
+}
 
 interface ItemListProps {
-	items: Array<{ id: string; brand: string; name: string; price: number, img: string }>;
-	addToCart: (selectedItemId: string) => void; 
+	items: Array<Product>;
+	addToCart: (selectedItem:Product ) => void; 
 }
 
 const ItemList: React.FC<ItemListProps> = ({ items, addToCart }) => {
 	type RenderRowProps = ListChildComponentProps;
+	
+
 	return (
 		<FixedSizeList
 			height={500} // 列表的高度

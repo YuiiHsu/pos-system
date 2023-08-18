@@ -7,7 +7,7 @@ import CategoryButton from '@/components/Categories/CategoryButton';
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import { SelectedProduct } from "../../types/cart";
+import { SelectedProduct, Product } from "../../types/cart";
 import faker from "faker";
 import { manageCart } from '@/utils/cartUtils';
 import { fetchProductFromDatabase } from '@/fakeAPI';
@@ -17,14 +17,7 @@ export interface Category {
 	name: string;
 }
 
-interface Product {
-	category: number;
-	brand: string;
-	id: string;
-	name: string;
-	price: number;
-	img: string;
-}
+
 
 const ShowCartButton = styled('button')({
 	width: '125px',

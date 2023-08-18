@@ -11,3 +11,12 @@ export enum CartAction {
   AdjustQuantity,
   Clear,
 }
+
+export interface Product {
+	category: number;
+	brand: string;
+	id: string;
+	name: string;
+	price: number;
+	img: string;
+}
