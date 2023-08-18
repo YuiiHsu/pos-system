@@ -28,9 +28,12 @@ const BrandAndCode = styled('div')({
 
 interface CartItemsProps {
 	items: SelectedProduct[];
+	adjustCartItemQuantity: (productId: string, newQuantity: number) => void; 
 }
 
-function CartItems({ items }: CartItemsProps) {
+function CartItems(props: CartItemsProps) {
+  const { items, adjustCartItemQuantity } = props;
+
 	return (
 		<CartItemsContainer>
 			{items.map((item) => (
@@ -43,10 +46,10 @@ function CartItems({ items }: CartItemsProps) {
 						<Typography>{item.id}</Typography>
 					</BrandAndCode>
 					<Grid sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
-						<Typography>{item.price}</Typography>
-						<Button>-</Button>
+						<Typography>{item.price*item.count}</Typography>
+						<Button onClick={() => {adjustCartItemQuantity(item.id, item.count-1)}}>-</Button>
 						<Typography>{item.count}</Typography>
-						<Button>+</Button>
+						<Button onClick={() => {adjustCartItemQuantity(item.id, item.count+1)}}>+</Button>
 					</Grid>
 				</CartItem>
 			))}

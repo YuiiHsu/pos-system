@@ -37,15 +37,13 @@ enum CartAction {
 }
 
 function Pos() {
-	const [showCart, setShowCart] = useState(false);
-	const [showBill, setShowBill] = useState(false);
+	const [showCart, setShowCart] = useState<boolean>(false);
+	const [showBill, setShowBill] = useState<boolean>(false);
 	const [selectedCategory, setSelectedCategory] = useState<number>(0)
 	const [searchInput, setSearchInput] = useState('');
 	const [totalItems, setTotalItems] = useState<Product[] | null>(null)
 	const [items, setItems] = useState<Product[] | null>(null);
-	const [selectedItem, setSelectedItem] = useState<SelectedProduct | null>(null);
 	const [cart, setCart] = useState<SelectedProduct[] | []>([]);
-	const [errorMsg, setErrorMsg] = useState<string | null>(null);
 	// TODO: 可以改用 API 動態取得值，並且檢查如果商品列表有該ID的商品再顯示類別供選擇
 	const categories = [
 		{
@@ -171,7 +169,8 @@ function Pos() {
 	 * @param newQuantity 
 	 */
 	const adjustCartItemQuantity = (productId: string, newQuantity: number) => {
-		setCart(manageCart(cart, CartAction.AdjustQuantity, { productId, newQuantity }));
+		const newCount = newQuantity < 0 ? 0 : newQuantity;
+		setCart(manageCart(cart, CartAction.AdjustQuantity, { productId, newCount }));
 	};
 
 	/**
@@ -230,10 +229,10 @@ function Pos() {
 			}
 			{/* 展開購物車 */}
 			{!showBill && (showCart ?
-				<Cart handleCartPage={handleCartPage} handleBillPage={handleBillPage} cart={cart} clearCart={clearCart} />
+				<Cart handleCartPage={handleCartPage} handleBillPage={handleBillPage} cart={cart} clearCart={clearCart} adjustCartItemQuantity={adjustCartItemQuantity} />
 				: (
 					<ShowCartButton onClick={() => { setShowCart(true) }}>
-						展開購物車
+						展開購物車（{cart.length}）
 					</ShowCartButton>
 				))}
 		</Box>
