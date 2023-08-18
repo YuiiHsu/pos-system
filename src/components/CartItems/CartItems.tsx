@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import {SelectedProduct} from"../../types/cart";
 
 const CartItemsContainer = styled('div')({
-  height: 'calc(100% - 360px)',
-  padding: '10px 0',
+	height: 'calc(100% - 360px)',
+	padding: '10px 0',
 });
 
 const CartItem = styled('div')({
@@ -25,38 +26,32 @@ const BrandAndCode = styled('div')({
 });
 
 
-interface Item {
-  id: string;
-  brand: string;
-  name: string;
-  price: number;
-}
-
 interface CartItemsProps {
-  items: Item[];
+	items: SelectedProduct[];
 }
 
 function CartItems({ items }: CartItemsProps) {
-  return (
-    <CartItemsContainer>
-      {items.map((item) => (
-        <CartItem key={item.id}>
-          <BrandAndCode>
-            <div>
-              <Typography>{item.brand}</Typography>
-              <Typography>{item.name}</Typography>
-            </div>
-            <Typography>{item.id}</Typography>
-          </BrandAndCode>
-          <Grid sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
-            <Button>-</Button>
-            <Typography>{item.price}</Typography>
-            <Button>+</Button>
-          </Grid>
-        </CartItem>
-      ))}
-    </CartItemsContainer>
-  );
+	return (
+		<CartItemsContainer>
+			{items.map((item) => (
+				<CartItem key={item.id}>
+					<BrandAndCode>
+						<div>
+							<Typography>{item.brand}</Typography>
+							<Typography>{item.name}</Typography>
+						</div>
+						<Typography>{item.id}</Typography>
+					</BrandAndCode>
+					<Grid sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
+						<Typography>{item.price}</Typography>
+						<Button>-</Button>
+						<Typography>{item.count}</Typography>
+						<Button>+</Button>
+					</Grid>
+				</CartItem>
+			))}
+		</CartItemsContainer>
+	);
 }
 
 export default CartItems;

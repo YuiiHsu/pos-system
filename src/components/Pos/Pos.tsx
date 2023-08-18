@@ -7,7 +7,10 @@ import CategoryButton from '@/components/Categories/CategoryButton';
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/system';
+import { SelectedProduct } from "../../types/cart";
 import faker from "faker";
+import { manageCart } from '@/utils/cartUtils';
+import { fetchProductFromDatabase } from '@/fakeAPI';
 
 export interface Category {
 	id: number;
@@ -36,12 +39,21 @@ const ShowCartButton = styled('button')({
 	borderRadius: '5px'
 });
 
+enum CartAction {
+	Add,
+	AdjustQuantity,
+	Clear,
+}
+
 function Pos() {
 	const [showCart, setShowCart] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState<number>(0)
 	const [searchInput, setSearchInput] = useState('');
 	const [totalItems, setTotalItems] = useState<Product[] | null>(null)
 	const [items, setItems] = useState<Product[] | null>(null);
+	const [selectedItem, setSelectedItem] = useState<SelectedProduct | null>(null);
+	const [cart, setCart] = useState<SelectedProduct[] | []>([]);
+	const [errorMsg, setErrorMsg] = useState<string | null>(null);
 	// TODO: 可以改用 API 動態取得值，並且檢查如果商品列表有該ID的商品再顯示類別供選擇
 	const categories = [
 		{
@@ -118,23 +130,64 @@ function Pos() {
 			return;
 		}
 
-		let filterData: Product[]|null=[];
-		if( !searchText && category === 0){
+		let filterData: Product[] | null = [];
+		if (!searchText && category === 0) {
 			// 當前畫面的資料與所有資料一樣則不需要重新渲染
-			if(currentItems === totalItems){
+			if (currentItems === totalItems) {
 				return;
 			}
 
 			filterData = totalItems;
 		}
 
-		filterData = totalItems.filter(item => 
+		filterData = totalItems.filter(item =>
 			item.id.toLowerCase().includes(searchText.toLowerCase()) && (item.category === 0 || item.category === category)
 		);
-		
+
 
 		setItems(filterData);
 	}
+
+
+	/**
+	 * 添加商品
+	 * @param selectedItem
+	 */
+	const addToCart = (selectedItem: Product) => {
+		setCart(manageCart(cart, CartAction.Add, selectedItem));
+
+		// 需求：加入商品時，如果從資料庫找不到該商品，就顯示錯誤訊息，使用非同步的方式模擬從資料庫查詢商品資料的情況
+		// if (selectedItem) {
+		// 	fetchProductFromDatabase(selectedItem.id)
+		// 		.then((product: SelectedProduct | null) => {
+		// 			if (!product) {
+		// 				setErrorMsg("商品不存在");
+		// 				return;
+		// 			};
+
+		// 			setCart(manageCart(cart, CartAction.Add, product));
+		// 		})
+		// 		.catch(error => {
+		// 			setErrorMsg("查询商品出错，请重试");
+		// 		})
+		// }
+	};
+
+	/**
+	 * 調整購物車數量
+	 * @param productId 
+	 * @param newQuantity 
+	 */
+	const adjustCartItemQuantity = (productId: string, newQuantity: number) => {
+		setCart(manageCart(cart, CartAction.AdjustQuantity, { productId, newQuantity }));
+	};
+
+	/**
+	 * 清空購物車
+	 */
+	const clearCart = () => {
+		setCart(manageCart(cart, CartAction.Clear));
+	};
 
 	useEffect(() => {
 		filteredItems(searchInput, selectedCategory, totalItems, items)
@@ -161,11 +214,11 @@ function Pos() {
 				</Grid>
 				{/* 商品列表 */}
 				{!items ? <></>
-					: <ItemList items={items} />}
+					: <ItemList items={items} addToCart={addToCart} />}
 			</Grid>
 			{/* 展開購物車 */}
 			{showCart ?
-				<Cart setShowCart={setShowCart} />
+				<Cart setShowCart={setShowCart} cart={cart} />
 				: (
 					<ShowCartButton onClick={() => { setShowCart(true) }}>
 						展開購物車

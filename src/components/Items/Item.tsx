@@ -55,7 +55,6 @@ const Item: React.FC<ItemProps> = ({ item }) => {
 						${item.price}
 					</Grid>
 				</Grid>
-				{/* 垂直3 (高是1/3) */}
 				<div style={{ marginTop: 'auto', alignSelf: 'flex-end', width: '100%' }}>
 					<Button
 						variant="contained"
